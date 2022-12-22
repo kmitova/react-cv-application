@@ -14,7 +14,18 @@ class App extends Component {
     this.handleChangeAddress = this.handleChangeAddress.bind(this);
     this.handleChangeIntro = this.handleChangeIntro.bind(this);
 
+    this.addWorkForm = this.addWorkForm.bind(this);
+    this.handleWorkForm = this.handleWorkForm.bind(this);
+
     this.state = {
+      workFields: [
+        {
+          company: "Dunder Mifflin",
+          position: "Receptionist",
+          start: "October 2004",
+          end: "June 2008",
+        },
+      ],
       personalInfo: {
         name: "Pamela Beesly",
         occupation: "Senior Adminstrator",
@@ -23,9 +34,34 @@ class App extends Component {
         address: "Linden Ave., Scranton PA",
         intro: "long introduction text",
       },
-      workExperince: [],
+      // workExperince: [
+      //   {
+      //     company: "Dunder Mifflin",
+      //     position: "Receptionist",
+      //     start: "October 2004",
+      //     end: "June 2008",
+      //   },
+      // ],
       education: [],
     };
+  }
+
+  handleWorkForm(i, e) {
+    let workFields = this.state.workFields;
+    workFields[i][e.target.name] = e.target.value;
+    this.setState({ workFields });
+  }
+
+  addWorkForm(e) {
+    console.log("clicked");
+    e.preventDefault();
+    this.setState({
+      workFields: [
+        ...this.state.workFields,
+        { company: "", position: "", start: "", end: "" },
+      ],
+    });
+    console.log(this.state.workFields);
   }
 
   handleChange(e) {
@@ -53,11 +89,6 @@ class App extends Component {
   }
 
   handleChangeOccupation(e) {
-    // this.setState({
-    //   personalInfo: {
-    //     occupation: e.target.value,
-    //   },
-    // });
     this.setState({
       personalInfo: { ...this.state.personalInfo, occupation: e.target.value },
     });
@@ -153,9 +184,62 @@ class App extends Component {
               ></textarea>
             </div>
           </div>
-          {/* <div className="category work-experience">
+          <div className="category work-experience">
             <h3>Work Experience</h3>
-            <div className="section work-experience-section">
+            {/* MAP OVER FORM */}
+            {this.state.workFields.map((el, i) => {
+              // {
+              //   console.log(el);
+              //   console.log(i);
+              // }
+
+              return (
+                <div className="section work-experience-section" key={i}>
+                  <h1>{i}</h1>
+                  <div className="form-group">
+                    <label htmlFor="">Company:</label>
+                    <input
+                      type="text"
+                      value={el.company || "Dunder Mifflin"}
+                      onChange={(e) => this.handleWorkForm(i, e)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="">Position:</label>
+                    <input
+                      type="text"
+                      value={el.position || "Senior Adminstrator"}
+                      onChange={(e) => this.handleWorkForm(i, e)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="">Start Date:</label>
+                    <input
+                      type="text"
+                      value={el.start || "June 2008"}
+                      onChange={(e) => this.handleWorkForm(i, e)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="">End Date:</label>
+                    <input
+                      type="text"
+                      value={el.end || "February 2012"}
+                      onChange={(e) => this.handleWorkForm(i, e)}
+                    />
+                  </div>
+
+                  <button
+                    type="button"
+                    className="button remove"
+                    // onClick={() => this.removeFormFields(index)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              );
+            })}
+            {/* <div className="section work-experience-section">
               <div className="form-group">
                 <label htmlFor="">Company:</label>
                 <input type="text" value={"Dunder Mifflin"} />
@@ -173,12 +257,12 @@ class App extends Component {
                 <input type="text" value={"February 2012"} />
               </div>
               <button>Delete</button>
-            </div>
+            </div> */}
             <div className="add-button">
-              <button>Add</button>
+              <button onClick={this.addWorkForm}>Add</button>
             </div>
           </div>
-          <div className="category education">
+          {/* <div className="category education">
             <h3>Education</h3>
             <div className="category education-section">
               <div className="form-group">
