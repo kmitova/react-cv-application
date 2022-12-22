@@ -150,7 +150,7 @@ class App extends Component {
                 type="text"
                 value={this.state.personalInfo.intro}
                 onChange={this.handleChangeIntro}
-              />
+              ></textarea>
             </div>
           </div>
           {/* <div className="category work-experience">
