@@ -6,21 +6,18 @@ class Overview extends Component {
   }
 
   render() {
+    console.log(this.props.personalInfoName);
+    console.log(this.props.personalInfoOccupation);
     return (
       <div className="cv-result-container">
         <div className="personal-info-container">
-          <h2>Pamela Beesly</h2>
-          <h4>Senior Administrator</h4>
-          <p>01254327788</p>
-          <p>pamela.beesly@gmail.com</p>
-          <p>Linden Ave., Scranton, PA</p>
+          <h2>Name: {this.props.personalInfoName}</h2>
+          <h4>{this.props.personalInfoOccupation}</h4>
+          <p>{this.props.personalInfoNumber}</p>
+          <p>{this.props.personalInfoEmail}</p>
+          <p>{this.props.personalInfoAddress}</p>
         </div>
-        <div className="introduction">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quia
-          a doloribus? Non ad, aliquam recusandae dignissimos pariatur et,
-          placeat dicta vel quaerat corrupti aperiam ut optio facere asperiores
-          atque accusamus! Obcaecati quibusdam corporis eos!
-        </div>
+        <div className="introduction">{this.props.personalInfoIntro}</div>
         <div className="work-experience-container">
           <h3>Work Experience</h3>
           <div className="work-experience-item">

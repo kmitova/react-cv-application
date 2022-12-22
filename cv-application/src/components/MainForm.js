@@ -3,6 +3,23 @@ import React, { Component } from "react";
 class MainForm extends Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      personalInfo: {
+        name: props.name,
+        occupation: props.occupation,
+      },
+    };
+  }
+
+  handleChange(e) {
+    this.setState({
+      personalInfo: {
+        name: e.target.value,
+      },
+    });
+    console.log(this.state.personalInfo);
+    console.log(e.target.value);
   }
 
   render() {
@@ -13,7 +30,11 @@ class MainForm extends Component {
           <h3>Personal Details</h3>
           <div className="form-group">
             <label htmlFor="">Name:</label>
-            <input type="text" value={"Pamela Beesly"} />
+            <input
+              type="text"
+              defaultValue="Pamela Beesly"
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="">Occupation:</label>
