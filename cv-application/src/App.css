@@ -1,14 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
 .App {
   text-align: center;
 }
 
 .App {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Lato', sans-serif;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+h1 {
+  color: #059669;
+  text-decoration: underline;
+}
+
+.main {
+  display: flex;
+  align-items:flex-start;
+  justify-content: center;
+  gap: 2em;
+  margin: 0 2em 2em;
+}
+
+.main > * {
+  width: 50%;
+  border: 2px solid #1e40af;
+  border-radius: 10px;
+}
+
+h2 {
+  color: #1e40af;
+}
+
+form {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form h3 {
+  text-align: start;
+  margin-left: -2em;
+}
+
+.form-group {
+  padding-bottom: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  gap: .6em;
+}
+
+label {
+  font-style: italic;
+}
+
+input, textarea {
+  font-family: 'Lato', sans-serif;
+  margin-left: .4em;
+  border: 1.4px solid #1e40af;
+  border-radius: 3px;
+  text-indent: .1em;
+  height: 3em;
+  width: 20em;
+  font-size: medium;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+
+input {
+  font-weight: 700;
+}
+
+textarea {
+  width: 300px;
+  height: 100px;
+  resize: none;
+}
+
+button {
+  border: none;
+  background-color: white;
+  color:#1e40af;
+  font-family: 'Lato', sans-serif;
+  font-size: medium;
+  margin-bottom: .4em;
+  border-radius: 3px;
+  padding: .4em;
+  font-weight: 700;
+  border: 1.4px solid #1e40af;
+  cursor: pointer;
+}
+
+button:hover {
+    background-color: #1e40af;
+      color: white;
+}
+
+.personal-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.right-side {
+  text-align: start;
+  font-weight: 700;
+  font-size: small;
+}
+
+.name, .position {
+  text-transform: uppercase;
+}
+
+.position {
+  color: #059669;
+}
+
+.introduction {
+  padding: .5em;
+  font-weight: 300;
+  border-radius: 3px;
+  border: 1px solid #059669;
+  text-align: left;
+  margin: 1em;
+  font-style: italic;
+}
+
+h3 {
+  text-align: start;
+  margin-left: 2.5em;
+}
+
+.work-experience-container, .education-container {
+  text-align: start;
+  margin-left: 3em;
+  margin-bottom: 1.6em;
+}
+
+.container-items {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1em;
+}
+
+.education-item, .work-experience-item {
+  border: 1px solid #1e40af;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  width: fit-content;
+  padding: .5em;
+}
+
+@media screen and (max-width:900px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .main > * {
+    width: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
