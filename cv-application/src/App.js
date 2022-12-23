@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { Component } from "react";
-// import MainForm from "./components/MainForm";
 import Overview from "./components/Overview";
 
 class App extends Component {
@@ -16,16 +15,13 @@ class App extends Component {
 
     this.addWorkForm = this.addWorkForm.bind(this);
     this.handleWorkForm = this.handleWorkForm.bind(this);
+    this.removeWorkFields = this.removeWorkFields.bind(this);
+
+    this.addEduForm = this.addEduForm.bind(this);
+    this.handleEduForm = this.handleEduForm.bind(this);
+    this.removeEduFields = this.removeEduFields.bind(this);
 
     this.state = {
-      workFields: [
-        {
-          company: "Dunder Mifflin",
-          position: "Receptionist",
-          start: "October 2004",
-          end: "June 2008",
-        },
-      ],
       personalInfo: {
         name: "Pamela Beesly",
         occupation: "Senior Adminstrator",
@@ -34,16 +30,35 @@ class App extends Component {
         address: "Linden Ave., Scranton PA",
         intro: "long introduction text",
       },
-      // workExperince: [
-      //   {
-      //     company: "Dunder Mifflin",
-      //     position: "Receptionist",
-      //     start: "October 2004",
-      //     end: "June 2008",
-      //   },
-      // ],
-      education: [],
+      workFields: [
+        {
+          company: "Dunder Mifflin",
+          position: "Receptionist",
+          start: "October 2004",
+          end: "June 2008",
+        },
+      ],
+      educationFields: [
+        {
+          course: "Applied and Digital Art",
+          school: "Pratt Institute",
+          startE: "2007",
+          endE: "2007",
+        },
+      ],
     };
+  }
+
+  removeWorkFields(i) {
+    let workFields = this.state.workFields;
+    workFields.splice(i, 1);
+    this.setState({ workFields });
+  }
+
+  removeEduFields(i) {
+    let educationFields = this.state.educationFields;
+    educationFields.splice(i, 1);
+    this.setState({ educationFields });
   }
 
   handleWorkForm(i, e) {
@@ -52,13 +67,29 @@ class App extends Component {
     this.setState({ workFields });
   }
 
+  handleEduForm(i, e) {
+    let educationFields = this.state.educationFields;
+    educationFields[i][e.target.name] = e.target.value;
+    this.setState({ educationFields });
+  }
+
   addWorkForm(e) {
-    console.log("clicked");
     e.preventDefault();
     this.setState({
       workFields: [
         ...this.state.workFields,
         { company: "", position: "", start: "", end: "" },
+      ],
+    });
+    console.log(this.state.workFields);
+  }
+
+  addEduForm(e) {
+    e.preventDefault();
+    this.setState({
+      educationFields: [
+        ...this.state.educationFields,
+        { course: "", school: "", startE: "", endE: "" },
       ],
     });
     console.log(this.state.workFields);
@@ -186,27 +217,22 @@ class App extends Component {
           </div>
           <div className="category work-experience">
             <h3>Work Experience</h3>
-            {/* MAP OVER FORM */}
             {this.state.workFields.map((el, i) => {
-              // {
-              //   console.log(el);
-              //   console.log(i);
-              // }
-
               return (
                 <div className="section work-experience-section" key={i}>
-                  <h1>{i}</h1>
                   <div className="form-group">
                     <label htmlFor="">Company:</label>
                     <input
+                      name="company"
                       type="text"
-                      value={el.company || "Dunder Mifflin"}
+                      value={el.company || "Dunder Mifflin" || ""}
                       onChange={(e) => this.handleWorkForm(i, e)}
                     />
                   </div>
                   <div className="form-group">
                     <label htmlFor="">Position:</label>
                     <input
+                      name="position"
                       type="text"
                       value={el.position || "Senior Adminstrator"}
                       onChange={(e) => this.handleWorkForm(i, e)}
@@ -215,6 +241,7 @@ class App extends Component {
                   <div className="form-group">
                     <label htmlFor="">Start Date:</label>
                     <input
+                      name="start"
                       type="text"
                       value={el.start || "June 2008"}
                       onChange={(e) => this.handleWorkForm(i, e)}
@@ -223,6 +250,7 @@ class App extends Component {
                   <div className="form-group">
                     <label htmlFor="">End Date:</label>
                     <input
+                      name="end"
                       type="text"
                       value={el.end || "February 2012"}
                       onChange={(e) => this.handleWorkForm(i, e)}
@@ -232,39 +260,71 @@ class App extends Component {
                   <button
                     type="button"
                     className="button remove"
-                    // onClick={() => this.removeFormFields(index)}
+                    onClick={() => this.removeWorkFields(i)}
                   >
                     Remove
                   </button>
                 </div>
               );
             })}
-            {/* <div className="section work-experience-section">
-              <div className="form-group">
-                <label htmlFor="">Company:</label>
-                <input type="text" value={"Dunder Mifflin"} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="">Position:</label>
-                <input type="text" value={"Senior Adminstrator"} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="">Start Date:</label>
-                <input type="text" value={"June 2008"} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="">End Date:</label>
-                <input type="text" value={"February 2012"} />
-              </div>
-              <button>Delete</button>
-            </div> */}
+
             <div className="add-button">
               <button onClick={this.addWorkForm}>Add</button>
             </div>
           </div>
-          {/* <div className="category education">
+          <div className="category education">
             <h3>Education</h3>
-            <div className="category education-section">
+            {this.state.educationFields.map((el, i) => {
+              return (
+                <div className="category education-section">
+                  <div className="form-group">
+                    <label htmlFor="">Course / Program:</label>
+                    <input
+                      type="text"
+                      name="course"
+                      value={el.course || "Applied and Digital Art"}
+                      onChange={(e) => this.handleEduForm(i, e)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="">Institution:</label>
+                    <input
+                      type="text"
+                      value={el.school || "Pratt Institute"}
+                      name="school"
+                      onChange={(e) => this.handleEduForm(i, e)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="">Start Date:</label>
+                    <input
+                      type="text"
+                      name="startE"
+                      value={el.startE || "2007"}
+                      onChange={(e) => this.handleEduForm(i, e)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="">End Date:</label>
+                    <input
+                      type="text"
+                      name="endE"
+                      value={el.endE || "2007"}
+                      onChange={(e) => this.handleEduForm(i, e)}
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    className="button remove"
+                    onClick={() => this.removeEduFields(i)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              );
+            })}
+
+            {/* <div className="category education-section">
               <div className="form-group">
                 <label htmlFor="">Course / Program:</label>
                 <input type="text" value={"Applied and Digital Art"} />
@@ -281,27 +341,26 @@ class App extends Component {
                 <label htmlFor="">End Date:</label>
                 <input type="text" value={"2007"} />
               </div>
-              <button>Delete</button>
-            </div>
+              <button
+                type="button"
+                className="button remove"
+                onClick={() => this.removeEduFields(i)}
+              >
+                Remove
+              </button>
+            </div> */}
             <div className="add-button">
-              <button>Add</button>
+              <button onClick={this.addEduForm}>Add</button>
             </div>
-          </div> */}
-          {/* <button type="submit">Submit</button> */}
+          </div>
         </form>
 
         {/* FORM RESULT */}
         <Overview
-          personalInfoName={this.state.personalInfo.name}
-          personalInfoOccupation={this.state.personalInfo.occupation}
-          personalInfoNumber={this.state.personalInfo.number}
-          personalInfoEmail={this.state.personalInfo.email}
-          personalInfoAddress={this.state.personalInfo.address}
-          personalInfoIntro={this.state.personalInfo.intro}
+          personalInfo={this.state.personalInfo}
+          workInfo={this.state.workFields}
+          eduInfo={this.state.educationFields}
         />
-        {/* - personal details */}
-        {/* - work experience */}
-        {/* - education */}
       </div>
     );
   }
